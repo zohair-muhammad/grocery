@@ -5,13 +5,17 @@ from pandas.core.dtypes.common import INT64_DTYPE
 from py3_wget import download_file
 import numpy as np
 from tkinter import *
+import os
+from pathlib import Path
 
-'''Uses stats_can to get data on retail prices of specific goods, located in a zipfile 
-containing a csv file and metadata'''
-grocery_table = stats_can.sc.get_full_table_download("18-10-0245-01")
+#Only download data if it doesnt exist in current directory.
+data_path = Path(os.getcwd() + '/data.zip')
+if not data_path.is_file():
+    '''Uses stats_can to get data on retail prices of specific goods, located in a zipfile 
+    containing a csv file and metadata'''
+    grocery_table = stats_can.sc.get_full_table_download("18-10-0245-01")
+    download_file(grocery_table, output_path="data.zip")
 
-#Uses py3_wget to overwrite data.zip, overwrites file if exists.
-download_file(grocery_table,overwrite=True, output_path="data.zip")
 
 #Reads the first file in data.zip to a pandas dataframe, ignoring the metadata file in the folder.
 with ZipFile("data.zip", 'r') as z:
@@ -27,7 +31,7 @@ with ZipFile("data.zip", 'r') as z:
 
 
 root = Tk()
-a = Label(root, text ="Hello World")
+a = Label(root, text ="Canadian Grocery Price Tracker")
 a.pack()
 
 root.mainloop()
