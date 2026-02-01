@@ -4,7 +4,9 @@ import pandas as pd
 from pandas.core.dtypes.common import INT64_DTYPE
 from py3_wget import download_file
 import numpy as np
-from tkinter import *
+import tkinter as tk
+from tkinter import ttk
+from tkinter import font as tkfont
 import os
 from pathlib import Path
 
@@ -27,14 +29,67 @@ with ZipFile("data.zip", 'r') as z:
 
 #milk_prices = df.loc[(df["GEO"] == 'Ontario') & (df["Products"] == "Milk, 4 litres")]
 #print(milk_prices.iloc[0]["VALUE"])
-# Python tkinter hello world program
 
 
-root = Tk()
-a = Label(root, text ="Canadian Grocery Price Tracker")
-a.pack()
+class SampleApp(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
+        self.minsize(500,500)
+        self.title("Grocery Price Tracker")
 
-root.mainloop()
+        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold")
+
+        # the container is where we'll stack a bunch of frames
+        # on top of each other, then the one we want visible
+        # will be raised above the others
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+
+
+        frame = StartPage(parent=container, controller=self)
+        self.frames = {"StartPage": frame}
+        frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame("StartPage")
+
+    def show_frame(self, page_name, name=""):
+        '''Show a frame for the given page name'''
+        frame = self.frames[page_name]
+        frame.tkraise()
+
+
+class StartPage(tk.Frame):
+    # Start page that directs user to one of three main pages
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Grocery Price Tracker", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+
+        n = tk.StringVar()
+        region = ttk.Combobox(self, width=27, textvariable=n)
+
+        # Adding combobox drop down list
+        region['values'] = ('Canada',
+                                  'Newfoundland and Labrador',
+                                  'Prince Edward Island',
+                                  'Nova Scotia',
+                                  'New Brunswick',
+                                  'Quebec',
+                                  'Ontario',
+                                  'Manitoba',
+                                  'Saskatchewan',
+                                  'Alberta',
+                                  'British Columbia')
+
+        region.pack()
+
+
+app = SampleApp()
+app.mainloop()
 
 
 
