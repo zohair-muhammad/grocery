@@ -5,10 +5,14 @@ from pandas.core.dtypes.common import INT64_DTYPE
 from py3_wget import download_file
 import numpy as np
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, StringVar
 from tkinter import font as tkfont
 import os
 from pathlib import Path
+
+
+
+selected_product = ''
 
 #Only download data if it doesnt exist in current directory.
 data_path = Path(os.getcwd() + '/data.zip')
@@ -47,11 +51,12 @@ class SampleApp(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-
-
+        self.selected_region = StringVar()
         frame = StartPage(parent=container, controller=self)
         self.frames = {"StartPage": frame}
         frame.grid(row=0, column=0, sticky="nsew")
+
+
 
         self.show_frame("StartPage")
 
@@ -60,19 +65,21 @@ class SampleApp(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
+    def get_region(self):
+        return self.selected_region
+
 
 class StartPage(tk.Frame):
     # Start page that directs user to one of three main pages
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="Grocery Price Tracker", font=controller.title_font)
+        label = tk.Label(self, text="Select a region", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        n = tk.StringVar()
-        region = ttk.Combobox(self, width=27, textvariable=n)
+        region = ttk.Combobox(self, width=27, textvariable= controller.get_region(), state='readonly')
 
-        # Adding combobox drop down list
+        #Adding combobox drop down list
         region['values'] = ('Canada',
                                   'Newfoundland and Labrador',
                                   'Prince Edward Island',
@@ -84,12 +91,13 @@ class StartPage(tk.Frame):
                                   'Saskatchewan',
                                   'Alberta',
                                   'British Columbia')
-
+        region.current(0)
         region.pack()
 
 
-app = SampleApp()
-app.mainloop()
+if __name__ == '__main__':
+    app = SampleApp()
+    app.mainloop()
 
 
 
