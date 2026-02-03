@@ -1,3 +1,5 @@
+from cProfile import label
+from tracemalloc import Frame
 from zipfile import ZipFile
 import stats_can
 import pandas as pd
@@ -52,9 +54,18 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.selected_region = StringVar()
-        frame = StartPage(parent=container, controller=self)
-        self.frames = {"StartPage": frame}
-        frame.grid(row=0, column=0, sticky="nsew")
+        self.selected_product = StringVar()
+
+        self.frames = {}
+        for F in (StartPage, PageOne):
+            page_name = F.__name__
+            frame = F(parent=container, controller=self)
+            self.frames[page_name] = frame
+
+            # put all of the pages in the same location;
+            # the one on the top of the stacking order
+            # will be the one that is visible.
+            frame.grid(row=0, column=0, sticky="nsew")
 
 
 
@@ -65,8 +76,6 @@ class SampleApp(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-    def get_region(self):
-        return self.selected_region
 
 
 class StartPage(tk.Frame):
@@ -77,9 +86,8 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Select a region", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        region = ttk.Combobox(self, width=27, textvariable= controller.get_region(), state='readonly')
+        region = ttk.Combobox(self, width=27, textvariable= controller.selected_region, state='readonly')
 
-        #Adding combobox drop down list
         region['values'] = ('Canada',
                                   'Newfoundland and Labrador',
                                   'Prince Edward Island',
@@ -91,8 +99,55 @@ class StartPage(tk.Frame):
                                   'Saskatchewan',
                                   'Alberta',
                                   'British Columbia')
+
+        #sets the default region to Canada
         region.current(0)
+
+
+        '''
+        def on_region_select(event):
+            print(region.get())
+        
+
+        region.bind("<<ComboboxSelected>>", on_region_select)
+        '''
         region.pack()
+
+        label2 = tk.Label(self, text="Select a product", font=controller.title_font)
+        label2.pack(side="top", fill="x", pady=10)
+
+        product = ttk.Combobox(self, width=27, textvariable=controller.selected_product, state='readonly')
+
+        product['values'] = ('Milk, 1 litre',
+                             'Milk, 2 litres',
+                             'Milk, 4 litres',
+                             'Eggs, 1 dozen',
+                             'Butter, 454 grams',
+                             'Apples, per kilogram',
+                             'Potatoes, 4.54 kilograms',
+                             'White bread, 675 grams',
+                             'White rice, 2 kilograms',
+                             'Baby food, 128 millilitres',
+                             'Ground beef, per kilogram')
+
+        # sets the default product to Milk, 1 litre
+        product.current(0)
+        product.pack()
+
+        sbutton = tk.Button(self, text="Submit",command=lambda:controller.show_frame("PageOne"))
+
+        sbutton.pack()
+
+class PageOne(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
