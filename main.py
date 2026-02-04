@@ -48,10 +48,10 @@ class SampleApp(tk.Tk):
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
         # will be raised above the others
-        container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True)
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        self.container = tk.Frame(self)
+        self.container.pack(side="top", fill="both", expand=True)
+        self.container.grid_rowconfigure(0, weight=1)
+        self.container.grid_columnconfigure(0, weight=1)
 
         self.selected_region = StringVar()
         self.selected_product = StringVar()
@@ -59,7 +59,7 @@ class SampleApp(tk.Tk):
         self.frames = {}
         for F in (StartPage, PageOne):
             page_name = F.__name__
-            frame = F(parent=container, controller=self)
+            frame = F(parent=self.container, controller=self)
             self.frames[page_name] = frame
 
             # put all of the pages in the same location;
@@ -76,7 +76,11 @@ class SampleApp(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-
+    def recreate_frame(self, page_name):
+        self.frames[page_name].destroy()
+        frame = PageOne(parent=self.container, controller=self)
+        self.frames[page_name] = frame
+        frame.grid(row=0, column=0, sticky="nsew")
 
 class StartPage(tk.Frame):
     # Start page that directs user to one of three main pages
@@ -130,18 +134,45 @@ class StartPage(tk.Frame):
                              'Baby food, 128 millilitres',
                              'Ground beef, per kilogram')
 
-        # sets the default product to Milk, 1 litre
+        #Sets the default product to Milk, 1 litre
         product.current(0)
         product.pack()
 
-        sbutton = tk.Button(self, text="Submit",command=lambda:controller.show_frame("PageOne"))
+        #Recreates frame in order to update it accordingly to options selected
+        def next_page():
+            controller.recreate_frame("PageOne")
+            controller.show_frame("PageOne")
 
+        sbutton = tk.Button(self, text="Submit",command=next_page)
         sbutton.pack()
 
 class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        prod = controller.selected_product.get()
+        geo = controller.selected_region.get()
+
+
+
+        label3 = tk.Label(self, text="The Price of " + prod
+                                     + " in " + geo, font=controller.title_font)
+
+
+
+        label3.pack()
+
+        product_data = df.loc[(df["GEO"] == geo) & (df["Products"] == prod)]
+        #retrive price of product for most recent month
+        price = product_data.iloc[len(product_data)-1]["VALUE"]
+        date = product_data.iloc[len(product_data)-1]["REF_DATE"]
+
+        label4 = tk.Label(self, text="Average of $" + str(price) + " during " + date)
+        label4.pack()
+
+        sbutton = tk.Button(self, text="Back", command=lambda:controller.show_frame("StartPage"))
+        sbutton.pack()
+
 
 
 
