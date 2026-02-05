@@ -3,9 +3,10 @@ from tracemalloc import Frame
 from zipfile import ZipFile
 import stats_can
 import pandas as pd
+from matplotlib import pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from pandas.core.dtypes.common import INT64_DTYPE
 from py3_wget import download_file
-import numpy as np
 import tkinter as tk
 from tkinter import ttk, StringVar
 from tkinter import font as tkfont
@@ -55,9 +56,10 @@ class SampleApp(tk.Tk):
 
         self.selected_region = StringVar()
         self.selected_product = StringVar()
+        self.selected_duration = StringVar()
 
         self.frames = {}
-        for F in (StartPage, PageOne):
+        for F in (StartPage, PageOne, PageTwo):
             page_name = F.__name__
             frame = F(parent=self.container, controller=self)
             self.frames[page_name] = frame
@@ -78,12 +80,18 @@ class SampleApp(tk.Tk):
 
     def recreate_frame(self, page_name):
         self.frames[page_name].destroy()
-        frame = PageOne(parent=self.container, controller=self)
+
+        frame = None
+
+        if page_name == 'PageOne':
+            frame = PageOne(parent=self.container, controller=self)
+        elif page_name == 'PageTwo':
+            frame = PageTwo(parent=self.container, controller=self)
         self.frames[page_name] = frame
         frame.grid(row=0, column=0, sticky="nsew")
 
 class StartPage(tk.Frame):
-    # Start page that directs user to one of three main pages
+    # Start page that allows user to select region, product and duration to view data
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -138,10 +146,25 @@ class StartPage(tk.Frame):
         product.current(0)
         product.pack()
 
+        label3=tk.Label(self, text="Select duration", font=controller.title_font)
+        label3.pack()
+
+        duration = ttk.Combobox(self, width=27, textvariable=controller.selected_duration, state='readonly')
+        duration['values'] = ('1 Month', '1 Year', '3 Years', '5 Years', '8 Years')
+        duration.current(0)
+        duration.pack()
+
+
         #Recreates frame in order to update it accordingly to options selected
         def next_page():
-            controller.recreate_frame("PageOne")
-            controller.show_frame("PageOne")
+            #If the duration is only one month, show frame consisting of the products average price for that month
+            if duration.get() == '1 Month':
+                controller.recreate_frame("PageOne")
+                controller.show_frame("PageOne")
+            #Otherwise, show a graph consisting of the products average price over a duration.
+            else:
+                controller.recreate_frame("PageTwo")
+                controller.show_frame("PageTwo")
 
         sbutton = tk.Button(self, text="Submit",command=next_page)
         sbutton.pack()
@@ -155,29 +178,67 @@ class PageOne(tk.Frame):
 
 
 
-        label3 = tk.Label(self, text="The Price of " + prod
+        label4 = tk.Label(self, text="The Price of " + prod
                                      + " in " + geo, font=controller.title_font)
 
 
 
-        label3.pack()
+        label4.pack()
 
         product_data = df.loc[(df["GEO"] == geo) & (df["Products"] == prod)]
         #retrive price of product for most recent month
         price = product_data.iloc[len(product_data)-1]["VALUE"]
         date = product_data.iloc[len(product_data)-1]["REF_DATE"]
 
-        label4 = tk.Label(self, text="Average of $" + str(price) + " during " + date)
-        label4.pack()
+        label5 = tk.Label(self, text="Average of $" + str(price) + " during " + date)
+        label5.pack()
 
         sbutton = tk.Button(self, text="Back", command=lambda:controller.show_frame("StartPage"))
         sbutton.pack()
 
 
 
+class PageTwo(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        prod = controller.selected_product.get()
+        geo = controller.selected_region.get()
 
 
 
+        label6 = tk.Label(self, text="The Price of " + prod
+                                     + " in " + geo, font=controller.title_font)
+
+        label6.pack()
+
+        product_data = df.loc[(df["GEO"] == geo) & (df["Products"] == prod)]
+
+        if controller.selected_duration.get() == '1 Year':
+            plot_data = product_data.tail(12)
+
+        elif controller.selected_duration.get() =='3 Years':
+            plot_data = product_data.tail(36)
+
+        elif controller.selected_duration.get() == '5 Years':
+            plot_data = product_data.tail(60)
+
+        else:
+            plot_data = product_data.tail(84)
+
+        plt.figure(figsize=(5,4))
+        dates = pd.to_datetime(plot_data['REF_DATE'], format = 'mixed')
+        plt.plot(dates, plot_data['VALUE'], linestyle='-', color='red')
+        plt.xlabel("Date")
+        plt.ylabel("Value")
+
+        fig = plt.gcf()
+        canvas = FigureCanvasTkAgg(fig,self)
+        canvas.draw()
+        canvas.get_tk_widget().pack()
+
+        sbutton = tk.Button(self, text="Back", command=lambda: controller.show_frame("StartPage"))
+        sbutton.pack()
 
 
 
