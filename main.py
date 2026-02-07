@@ -4,8 +4,8 @@ from zipfile import ZipFile
 import stats_can
 import pandas as pd
 from matplotlib import pyplot as plt
+from matplotlib.backends._backend_tk import NavigationToolbar2Tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from pandas.core.dtypes.common import INT64_DTYPE
 from py3_wget import download_file
 import tkinter as tk
 from tkinter import ttk, StringVar
@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 
-selected_product = ''
+
 
 #Only download data if it doesnt exist in current directory.
 data_path = Path(os.getcwd() + '/data.zip')
@@ -204,23 +204,24 @@ class PageTwo(tk.Frame):
         self.controller = controller
         prod = controller.selected_product.get()
         geo = controller.selected_region.get()
+        duration = controller.selected_duration.get()
 
 
 
         label6 = tk.Label(self, text="The Price of " + prod
-                                     + " in " + geo, font=controller.title_font)
+                                     + " in " + geo +" over " + duration, font=controller.title_font)
 
         label6.pack()
 
         product_data = df.loc[(df["GEO"] == geo) & (df["Products"] == prod)]
 
-        if controller.selected_duration.get() == '1 Year':
+        if duration == '1 Year':
             plot_data = product_data.tail(12)
 
-        elif controller.selected_duration.get() =='3 Years':
+        elif duration =='3 Years':
             plot_data = product_data.tail(36)
 
-        elif controller.selected_duration.get() == '5 Years':
+        elif duration == '5 Years':
             plot_data = product_data.tail(60)
 
         else:
@@ -229,12 +230,18 @@ class PageTwo(tk.Frame):
         plt.figure(figsize=(5,4))
         dates = pd.to_datetime(plot_data['REF_DATE'], format = 'mixed')
         plt.plot(dates, plot_data['VALUE'], linestyle='-', color='red')
-        plt.xlabel("Date")
-        plt.ylabel("Value")
+
+        plt.xticks(rotation = 30, fontsize = 6)
+        plt.yticks(fontsize = 8)
+        plt.title("Average monthly price for\n " + prod + " in " + geo, fontsize = 8, fontweight = 'bold')
+        plt.ylabel("Value (CAD$)")
+
 
         fig = plt.gcf()
         canvas = FigureCanvasTkAgg(fig,self)
         canvas.draw()
+        toolbar = NavigationToolbar2Tk(canvas, controller)
+        toolbar.update()
         canvas.get_tk_widget().pack()
 
         sbutton = tk.Button(self, text="Back", command=lambda: controller.show_frame("StartPage"))
