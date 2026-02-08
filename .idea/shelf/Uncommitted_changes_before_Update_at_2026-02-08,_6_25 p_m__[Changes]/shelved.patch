@@ -1,0 +1,84 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"13fa2363-96b6-4f97-9010-885ef553ca68\" name=\"Changes\" comment=\"added tkinter to project\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/grocery.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/grocery.iml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/main.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/main.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;zohair-muhammad&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/zohair-muhammad/grocery.git&quot;,\n    &quot;accountId&quot;: &quot;09edca78-6e41-4b46-a930-d7deef39dcab&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 1\n}</component>\n  <component name=\"ProjectId\" id=\"38aV0C8VyrNeX66M7HzhZO49qXJ\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;Python.main.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;\n  }\n}</component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-af26db0dccfe-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.26775.22\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"13fa2363-96b6-4f97-9010-885ef553ca68\" name=\"Changes\" comment=\"\" />\n      <created>1769037443338</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1769037443338</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"imported stats_can to be able to fetch cpi data\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769039671262</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769039671262</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"download file from stats canada and read csv with pandas\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769052943894</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769052943894</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"added tkinter to project\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769486692752</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769486692752</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"4\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"imported stats_can to be able to fetch cpi data\" />\n    <MESSAGE value=\"download file from stats canada and read csv with pandas\" />\n    <MESSAGE value=\"added tkinter to project\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"added tkinter to project\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 9536286ee155de36dcf85ab13132469b4ff26125)
++++ b/.idea/workspace.xml	(date 1770179331533)
+@@ -4,9 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="13fa2363-96b6-4f97-9010-885ef553ca68" name="Changes" comment="added tkinter to project">
+-      <change beforePath="$PROJECT_DIR$/.idea/grocery.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/grocery.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++    <list default="true" id="13fa2363-96b6-4f97-9010-885ef553ca68" name="Changes" comment="App retrieves the most recent average price for selected region">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+     </list>
+@@ -94,7 +92,47 @@
+       <option name="project" value="LOCAL" />
+       <updated>1769486692752</updated>
+     </task>
+-    <option name="localTasksCounter" value="4" />
++    <task id="LOCAL-00004" summary="Only downloads data.zip if it doesnt exist instead of overwriting">
++      <option name="closed" value="true" />
++      <created>1769629718756</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1769629718757</updated>
++    </task>
++    <task id="LOCAL-00005" summary="Added tkinter combobox widget to starting page.">
++      <option name="closed" value="true" />
++      <created>1769910580282</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1769910580282</updated>
++    </task>
++    <task id="LOCAL-00006" summary="Made Canada the default value for the Combobox.">
++      <option name="closed" value="true" />
++      <created>1769985979970</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1769985979970</updated>
++    </task>
++    <task id="LOCAL-00007" summary="Added a products combobox">
++      <option name="closed" value="true" />
++      <created>1770085040098</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1770085040098</updated>
++    </task>
++    <task id="LOCAL-00008" summary="App retrieves the most recent average price for selected region">
++      <option name="closed" value="true" />
++      <created>1770166158927</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1770166158927</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -112,6 +150,11 @@
+     <MESSAGE value="imported stats_can to be able to fetch cpi data" />
+     <MESSAGE value="download file from stats canada and read csv with pandas" />
+     <MESSAGE value="added tkinter to project" />
+-    <option name="LAST_COMMIT_MESSAGE" value="added tkinter to project" />
++    <MESSAGE value="Only downloads data.zip if it doesnt exist instead of overwriting" />
++    <MESSAGE value="Added tkinter combobox widget to starting page." />
++    <MESSAGE value="Made Canada the default value for the Combobox." />
++    <MESSAGE value="Added a products combobox" />
++    <MESSAGE value="App retrieves the most recent average price for selected region" />
++    <option name="LAST_COMMIT_MESSAGE" value="App retrieves the most recent average price for selected region" />
+   </component>
+ </project>
+\ No newline at end of file
