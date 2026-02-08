@@ -140,6 +140,8 @@ class StartPage(tk.Frame):
                              'White bread, 675 grams',
                              'White rice, 2 kilograms',
                              'Baby food, 128 millilitres',
+                             'Canned tuna, 170 grams',
+                             'Cereal, 400 grams'
                              'Ground beef, per kilogram')
 
         #Sets the default product to Milk, 1 litre
@@ -240,9 +242,11 @@ class PageTwo(tk.Frame):
         fig = plt.gcf()
         canvas = FigureCanvasTkAgg(fig,self)
         canvas.draw()
-        toolbar = NavigationToolbar2Tk(canvas, controller)
+        toolbar = NavigationToolbar2Tk(canvas, self)
         toolbar.update()
+
         canvas.get_tk_widget().pack()
+        toolbar.pack()
 
         sbutton = tk.Button(self, text="Back", command=lambda: controller.show_frame("StartPage"))
         sbutton.pack()
